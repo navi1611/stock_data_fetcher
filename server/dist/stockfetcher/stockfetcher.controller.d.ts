@@ -1,8 +1,9 @@
-import { StockService } from './stockfetcher.service';
+import { StockService } from "./stockfetcher.service";
+import { SymbolDto } from "./dto/symbol.dto";
 export declare class StockFetchController {
     private readonly stockService;
     constructor(stockService: StockService);
-    getStockData(symbol: string): Promise<unknown[] | {
+    getStockData(body: SymbolDto): Promise<unknown[] | {
         message: string;
     }>;
     getRegionBasedTrending(market: string): Promise<string[]>;

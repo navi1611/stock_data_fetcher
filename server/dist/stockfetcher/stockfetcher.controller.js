@@ -17,18 +17,19 @@ const common_1 = require("@nestjs/common");
 const stockfetcher_service_1 = require("./stockfetcher.service");
 const swagger_1 = require("@nestjs/swagger");
 const throttler_1 = require("@nestjs/throttler");
+const symbol_dto_1 = require("./dto/symbol.dto");
 let StockFetchController = class StockFetchController {
     stockService;
     constructor(stockService) {
         this.stockService = stockService;
     }
-    async getStockData(symbol) {
+    async getStockData(body) {
         try {
-            const stockData = await this.stockService.getStockData(symbol);
+            const stockData = await this.stockService.getStockData(body.symbol);
             return stockData;
         }
         catch (error) {
-            return { message: 'Error fetching stock data' };
+            return { message: "Error fetching stock data" };
         }
     }
     async getRegionBasedTrending(market) {
@@ -40,45 +41,45 @@ let StockFetchController = class StockFetchController {
 };
 exports.StockFetchController = StockFetchController;
 __decorate([
-    (0, common_1.Get)(':symbol'),
-    (0, common_1.Header)('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate'),
-    (0, common_1.Header)('Pragma', 'no-cache'),
-    (0, common_1.Header)('Expires', '0'),
-    (0, swagger_1.ApiOperation)({ summary: 'To Fetch Stock Data' }),
-    (0, swagger_1.ApiResponse)({ status: 200, description: 'Stock Data' }),
-    __param(0, (0, common_1.Param)('symbol')),
+    (0, common_1.Post)("symbol"),
+    (0, common_1.Header)("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate"),
+    (0, common_1.Header)("Pragma", "no-cache"),
+    (0, common_1.Header)("Expires", "0"),
+    (0, swagger_1.ApiOperation)({ summary: "To Fetch Stock Data" }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: "Stock Data" }),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [symbol_dto_1.SymbolDto]),
     __metadata("design:returntype", Promise)
 ], StockFetchController.prototype, "getStockData", null);
 __decorate([
-    (0, common_1.Get)('trending/:market'),
-    (0, common_1.Header)('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate'),
-    (0, common_1.Header)('Pragma', 'no-cache'),
-    (0, common_1.Header)('Expires', '0'),
-    (0, swagger_1.ApiOperation)({ summary: 'To Fetch Stock Data On Region' }),
-    (0, swagger_1.ApiResponse)({ status: 200, description: 'Stock Data On Region' }),
-    __param(0, (0, common_1.Param)('market')),
+    (0, common_1.Get)("trending/:market"),
+    (0, common_1.Header)("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate"),
+    (0, common_1.Header)("Pragma", "no-cache"),
+    (0, common_1.Header)("Expires", "0"),
+    (0, swagger_1.ApiOperation)({ summary: "To Fetch Stock Data On Region" }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: "Stock Data On Region" }),
+    __param(0, (0, common_1.Param)("market")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], StockFetchController.prototype, "getRegionBasedTrending", null);
 __decorate([
-    (0, common_1.Get)('usStocks'),
-    (0, common_1.Header)('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate'),
-    (0, common_1.Header)('Pragma', 'no-cache'),
-    (0, common_1.Header)('Expires', '0'),
-    (0, swagger_1.ApiOperation)({ summary: 'To Fetch US Stock Data' }),
-    (0, swagger_1.ApiResponse)({ status: 200, description: 'US Stock Data' }),
+    (0, common_1.Get)("usStocks"),
+    (0, common_1.Header)("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate"),
+    (0, common_1.Header)("Pragma", "no-cache"),
+    (0, common_1.Header)("Expires", "0"),
+    (0, swagger_1.ApiOperation)({ summary: "To Fetch US Stock Data" }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: "US Stock Data" }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], StockFetchController.prototype, "getUsStocks", null);
 exports.StockFetchController = StockFetchController = __decorate([
-    (0, swagger_1.ApiTags)('stockFetcher'),
-    (0, common_1.Controller)('stockFetcher'),
+    (0, swagger_1.ApiTags)("stockFetcher"),
+    (0, common_1.Controller)("stockFetcher"),
     (0, throttler_1.Throttle)({
-        '/stockFetcher/:symbol': {
+        "/stockFetcher/:symbol": {
             limit: 1000,
             ttl: 86400,
         },

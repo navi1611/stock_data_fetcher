@@ -55,12 +55,12 @@ export default function DataTable<T extends object>({
 
     return (
 
-        <div className="w-full rounded-md fade-in overflow-auto">
+        <div className="w-full rounded-md fade-in overflow-auto fade-in">
             <table
                 {...getTableProps()}
                 className="w-full "
             >
-                <thead className="bg-[#123C4A] px-6 py-4">
+                <thead className="bg-gray-200 px-6 py-4 border-1 border-gray-300 rounded-md text-gray-700 fade-in">
                     {headerGroups.map((headerGroup) => (
                         <tr {...headerGroup.getHeaderGroupProps()} key={headerGroup.id}>
                             {headerGroup.headers.map((column: any) => {
@@ -89,7 +89,7 @@ export default function DataTable<T extends object>({
                 </thead>
                 <tbody
                     {...getTableBodyProps()}
-                    className="bg-[#0D1B2A]"
+                    className="text-gray-700"
                 >
                     {page.length === 0 ? (
                         <tr>
@@ -106,13 +106,13 @@ export default function DataTable<T extends object>({
                             return (
                                 <tr
                                     {...row.getRowProps()}
-                                    className="hover:bg-[#152A3A] hover:cursor-pointer transition-colors odd:bg-[#112533] even:bg-[#162C3A]"
+                                    className="transition-colors bg-white odd:bg-white even:bg-gray-50 hover:bg-gray-100 text-gray-700 fade-in"
                                     key={row.id}
                                 >
                                     {row.cells.map((cell) => (
                                         <td
                                             {...cell.getCellProps()}
-                                            className=" px-6 py-4 whitespace-nowrap text-sm text-[#B0BEC5]"
+                                            className=" px-6 py-4 whitespace-nowrap text-sm "
                                             key={cell.column.id}
                                         >
                                             {cell.render('Cell')}
@@ -126,7 +126,7 @@ export default function DataTable<T extends object>({
             </table>
 
             {showPagination && pageCount > 1 && (
-                <div className="bg-[#145E63] flex items-center justify-between px-4 py-3">
+                <div className="bg-gray-200 text-gray-600 flex items-center justify-between px-4 py-3">
                     <div className="flex items-center gap-2">
                         <button
                             onClick={() => gotoPage(0)}

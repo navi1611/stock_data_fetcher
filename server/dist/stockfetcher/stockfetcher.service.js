@@ -16,34 +16,30 @@ const constant_1 = require("./constant");
 let StockService = class StockService {
     yahooFinance = new index_ts_1.default();
     getHello() {
-        return 'Hello World!';
+        return "Hello World!";
     }
     async getStockData(key) {
         try {
             const arrayKey = Array.isArray(key) ? key : [key];
-            const formattedKeys = arrayKey.map((k) => k.replace('.', '-'));
+            const formattedKeys = arrayKey.map((k) => k.replace(".", "-"));
             const data = await this.yahooFinance.quote(formattedKeys);
-            if (Array.isArray(data)) {
-                return data;
-            }
-            else {
-                return Object.values(data);
-            }
+            const dataArray = Array.isArray(data) ? data : Object.values(data);
+            return dataArray.map((item) => item);
         }
         catch (error) {
-            console.error('Error fetching stock data:', error);
-            throw new common_1.BadRequestException('Unable to fetch stock data');
+            console.error("Error fetching stock data:", error);
+            throw new common_1.BadRequestException("Unable to fetch stock data");
         }
     }
-    async getRegionBasedTrending(market = 'IN') {
+    async getRegionBasedTrending(market = "IN") {
         try {
             const data = await this.yahooFinance.trendingSymbols(market);
             const symbols = data.quotes.map((item) => item.symbol);
             return symbols;
         }
         catch (error) {
-            console.error('Error fetching trending stocks:', error);
-            throw new common_1.BadRequestException('Unable to fetch trending stocks');
+            console.error("Error fetching trending stocks:", error);
+            throw new common_1.BadRequestException("Unable to fetch trending stocks");
         }
     }
     async getUsStocks() {
@@ -58,7 +54,7 @@ let StockService = class StockService {
             return res;
         }
         catch (error) {
-            throw new common_1.BadRequestException('Unable to fetch trending stocks');
+            throw new common_1.BadRequestException("Unable to fetch trending stocks");
         }
     }
 };
