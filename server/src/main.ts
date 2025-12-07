@@ -1,20 +1,20 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { NestFactory } from "@nestjs/core";
+import { AppModule } from "./app.module";
+import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
-    .setTitle('Stock Data Fetcher API')
+    .setTitle("Stock Data Fetcher API")
     .setDescription(
-      'The Stock Data Fetcher API fetches stock data from the Yahoo Finance API.',
+      "The Stock Data Fetcher API fetches stock data from the Yahoo Finance API.",
     )
-    .setVersion('1.0')
+    .setVersion("1.0")
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup("api", app, document);
 
   app.enableCors();
   await app.listen(process.env.PORT ?? 8000);

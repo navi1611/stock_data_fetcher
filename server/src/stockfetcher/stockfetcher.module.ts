@@ -1,6 +1,6 @@
-import { Module } from '@nestjs/common';
-import { StockFetchController } from './stockfetcher.controller';
-import { StockService } from './stockfetcher.service';
+import { Module } from "@nestjs/common";
+import { StockFetchController } from "./stockfetcher.controller";
+import { StockService } from "./stockfetcher.service";
 
 @Module({
   imports: [],

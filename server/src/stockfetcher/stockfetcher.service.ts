@@ -45,7 +45,7 @@ export class StockService {
             sector: item.sector,
             data,
           };
-        })
+        }),
       );
       return res;
     } catch {
@@ -69,12 +69,12 @@ export class StockService {
         dataArray.map((item: Stock) => {
           const symbol = item.symbol ? item.symbol.replace("-", ".") : "";
           return [symbol, item] as [string, Stock];
-        })
+        }),
       );
 
       const totalInvestment = holdings.holdings.reduce(
         (sum, holding) => sum + holding.purchasePrice * holding.quantity,
-        0
+        0,
       );
 
       const holdingsWithData = holdings.holdings.map((holding) => {
@@ -151,7 +151,7 @@ export class StockService {
             sector: sector.sector,
             holdings: holdingsData,
           };
-        })
+        }),
       );
 
       return holdingsBySector;
@@ -163,5 +163,4 @@ export class StockService {
       throw new BadRequestException("Unable to fetch holdings by sector");
     }
   }
-
 }

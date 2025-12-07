@@ -9,7 +9,7 @@ export class HoldingDto {
 
   @ApiProperty({
     description: "Purchase price per share",
-    example: 150.50,
+    example: 150.5,
   })
   purchasePrice: number;
 
@@ -39,4 +39,3 @@ export class HoldingsDto {
   })
   holdings: HoldingDto[];
 }
-
