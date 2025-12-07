@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowBigLeftDash, ArrowBigRightDash, ArrowBigRightDashIcon, ArrowDown, ArrowUp, ChevronFirstIcon, ChevronLastIcon, ChevronLeftIcon, ChevronRightIcon, ChevronsLeftIcon, ChevronsRightIcon, CircleArrowLeftIcon, CircleArrowRightIcon } from 'lucide-react';
+import { ArrowDown, ArrowUp, ChevronsLeftIcon, ChevronsRightIcon, CircleArrowLeftIcon, CircleArrowRightIcon } from 'lucide-react';
 import React, { useMemo } from 'react';
 import {
     useTable,
@@ -41,7 +41,6 @@ export default function DataTable<T extends object>({
         getTableProps,
         getTableBodyProps,
         headerGroups,
-        rows,
         prepareRow,
         page,
         canPreviousPage,
@@ -133,7 +132,6 @@ export default function DataTable<T extends object>({
                             disabled={!canPreviousPage}
                             className='cursor-pointer'
                         >
-                            {/* <ChevronFirstIcon/> */}
                             <ChevronsLeftIcon/>
                         </button>
                         <button
@@ -155,7 +153,6 @@ export default function DataTable<T extends object>({
                             disabled={!canNextPage}
                             className='cursor-pointer'
                         >
-                            {/* <ChevronLastIcon/> */}
                             <ChevronsRightIcon/>
                         </button>
                     </div>

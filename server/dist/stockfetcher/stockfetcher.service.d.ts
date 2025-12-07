@@ -3,7 +3,6 @@ export declare class StockService {
     private readonly logger;
     private readonly yahooFinance;
     getStockData(key: string | string[]): Promise<unknown[]>;
-    getRegionBasedTrending(market?: string): Promise<unknown[]>;
     getUsStocks(): Promise<{
         sector: string;
         data: unknown[];
@@ -23,5 +22,4 @@ export declare class StockService {
     }[]>;
     private getDataFilePath;
     getHoldingsBySector(): Promise<any[]>;
-    updateStockPrices(): Promise<void>;
 }

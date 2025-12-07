@@ -9,27 +9,9 @@ export interface StockData {
   [key: string]: any;
 }
 
-export interface TrendingStocksResponse {
-  quotes: Array<{
-    symbol: string;
-    [key: string]: any;
-  }>;
-}
-
 export interface UsStocksResponse {
   sector: string;
   data: StockData[];
-}
-
-export interface HoldingStock {
-  particulars: string;
-  purchasePrice: number;
-  quantity: number;
-  symbol: string;
-}
-
-export interface HoldingsRequest {
-  holdings: HoldingStock[];
 }
 
 export interface HoldingsResponse {
@@ -44,7 +26,6 @@ export interface HoldingsResponse {
   presentValue: number;
   gainLoss: number;
   peRatio: number | null;
-  latestEarnings: string | number | null;
 }
 
 export interface HoldingsBySectorResponse {

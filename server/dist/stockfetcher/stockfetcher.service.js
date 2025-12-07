@@ -65,18 +65,6 @@ let StockService = StockService_1 = class StockService {
             throw new common_1.BadRequestException("Unable to fetch stock data");
         }
     }
-    async getRegionBasedTrending(market = "IN") {
-        try {
-            const data = await this.yahooFinance.trendingSymbols(market);
-            const symbols = data.quotes.map((item) => item.symbol);
-            const symbolData = await this.getStockData(symbols);
-            return symbolData;
-        }
-        catch (error) {
-            this.logger.error(`Error fetching trending stocks for market ${market}: ${error.message}`, error.stack);
-            throw new common_1.BadRequestException("Unable to fetch trending stocks");
-        }
-    }
     async getUsStocks() {
         try {
             const res = await Promise.all(constant_1.US_STOCKS.map(async (item) => {
@@ -148,8 +136,8 @@ let StockService = StockService_1 = class StockService {
     }
     async getHoldingsBySector() {
         try {
-            const dataFilePath = this.getDataFilePath();
-            const raw = fs.readFileSync(dataFilePath, "utf8");
+            const path = this.getDataFilePath();
+            const raw = fs.readFileSync(path, "utf8");
             const data = JSON.parse(raw);
             const holdingsBySector = await Promise.all(data.US_STOCKS.map(async (sector) => {
                 if (!sector.holdings || sector.holdings.length === 0) {
@@ -158,12 +146,12 @@ let StockService = StockService_1 = class StockService {
                         holdings: [],
                     };
                 }
-                const enrichedHoldings = await this.getHoldingsData({
+                const holdingsData = await this.getHoldingsData({
                     holdings: sector.holdings,
                 });
                 return {
                     sector: sector.sector,
-                    holdings: enrichedHoldings,
+                    holdings: holdingsData,
                 };
             }));
             return holdingsBySector;
@@ -171,28 +159,6 @@ let StockService = StockService_1 = class StockService {
         catch (error) {
             this.logger.error(`Error fetching holdings by sector: ${error.message}`, error.stack);
             throw new common_1.BadRequestException("Unable to fetch holdings by sector");
-        }
-    }
-    async updateStockPrices() {
-        try {
-            const dataFilePath = this.getDataFilePath();
-            const raw = fs.readFileSync(dataFilePath, "utf8");
-            const data = JSON.parse(raw);
-            for (const sector of data.US_STOCKS) {
-                for (const holding of sector.holdings) {
-                    try {
-                        await this.getHoldingsData({ holdings: [holding] });
-                    }
-                    catch (err) {
-                        this.logger.warn(`Failed price fetch for ${holding.symbol}: ${err.message}`);
-                    }
-                }
-            }
-            fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2));
-            this.logger.log("Stock prices updated successfully");
-        }
-        catch (error) {
-            this.logger.error(`Error reading/writing data.json: ${error.message}`, error.stack);
         }
     }
 };

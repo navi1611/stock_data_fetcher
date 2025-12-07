@@ -1,6 +1,4 @@
 import { Module } from "@nestjs/common";
-import { AppController } from "./app.controller";
-import { AppService } from "./app.service";
 import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
 import { APP_GUARD, APP_INTERCEPTOR } from "@nestjs/core";
 import { StockFetchModule } from "./stockfetcher/stockfetcher.module";
@@ -18,9 +16,8 @@ import { ErrorInterceptor } from "./common/interceptors/error.interceptor";
     }),
     StockFetchModule,
   ],
-  controllers: [AppController],
+  controllers: [],
   providers: [
-    AppService,
     {
       provide: APP_GUARD,
       useClass: ThrottlerGuard,

@@ -15,7 +15,6 @@ export default function Portfolio() {
   const [lastFetchedTime, setLastFetchedTime] = useState<Date | null>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const router = useRouter()
 
   const fetchData = useCallback(async (isInitial = false) => {
@@ -26,7 +25,6 @@ export default function Portfolio() {
       await dispatch(fetchHoldingsBySector()).unwrap();
       setLastFetchedTime(new Date());
     } catch (error) {
-      setError("Error fetching portfolio data" as string);
       console.error('Error fetching portfolio data:', error);
     } finally {
       if (isInitial) {
@@ -115,7 +113,6 @@ export default function Portfolio() {
         return (
           <span className={`font-medium ${value.value >= 0 ? 'text-green-600' : 'text-red-500'} flex items-center gap-1`}>
             {value.arrow} {value.value.toFixed(2)}
-            {/* {value >= 0 ? '+' : ''}${value.toFixed(2)} */}
           </span>
         );
       }

@@ -1,4 +1,4 @@
-import { HoldingsRequest, HoldingsResponse, HoldingsBySectorResponse, StockData, UsStocksResponse } from '@/interface';
+import { HoldingsBySectorResponse, UsStocksResponse } from '@/interface';
 import axios from 'axios';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
@@ -22,49 +22,12 @@ baseApi.interceptors.response.use(
 );
 
 
-export const getStockData = async (symbol: string | string[]): Promise<StockData[]> => {
-  try {
-    let symbolParam: string;
-    if (Array.isArray(symbol)) {
-      symbolParam = symbol.map(s => s.trim()).join(',');
-    } else {
-      symbolParam = symbol.split(',').map(s => s.trim()).join(',');
-    }
-
-    const response = await baseApi.get<StockData[]>(`/stockFetcher/${symbolParam}`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching stock data:', error);
-    throw error;
-  }
-};
-
-export const getTrendingStocks = async (market: string = 'IN'): Promise<string[]> => {
-  try {
-    const response = await baseApi.get<string[]>(`/stockFetcher/trending/${market}`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching trending stocks:', error);
-    throw error;
-  }
-};
-
 export const getUsStocks = async (): Promise<UsStocksResponse[]> => {
   try {
     const response = await baseApi.get<UsStocksResponse[]>('/stockFetcher/usStocks');
     return response.data;
   } catch (error) {
     console.error('Error fetching US stocks:', error);
-    throw error;
-  }
-};
-
-export const getHoldingsData = async (holdings: HoldingsRequest): Promise<HoldingsResponse[]> => {
-  try {
-    const response = await baseApi.post<HoldingsResponse[]>('/stockFetcher/holdings', holdings);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching holdings data:', error);
     throw error;
   }
 };
@@ -78,6 +41,4 @@ export const getHoldingsBySector = async (): Promise<HoldingsBySectorResponse[]>
     throw error;
   }
 };
-
-export default baseApi;
 

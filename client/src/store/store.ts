@@ -9,7 +9,7 @@ export const makeStore = () => {
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         serializableCheck: {
-          ignoredActions: ['stock/fetchStockData/fulfilled', 'stock/fetchUsStocks/fulfilled'],
+          ignoredActions: ['stock/fetchUsStocks/fulfilled'],
         },
       }),
   });

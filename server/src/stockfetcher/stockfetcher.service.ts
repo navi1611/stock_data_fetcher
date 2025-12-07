@@ -35,21 +35,6 @@ export class StockService {
     }
   }
 
-  async getRegionBasedTrending(market: string = "IN") {
-    try {
-      const data = await this.yahooFinance.trendingSymbols(market);
-      const symbols = data.quotes.map((item) => item.symbol);
-      const symbolData = await this.getStockData(symbols);
-      return symbolData;
-    } catch (error) {
-      this.logger.error(
-        `Error fetching trending stocks for market ${market}: ${error.message}`,
-        error.stack,
-      );
-      throw new BadRequestException("Unable to fetch trending stocks");
-    }
-  }
-
   async getUsStocks() {
     try {
       const res = await Promise.all(
@@ -145,8 +130,8 @@ export class StockService {
 
   async getHoldingsBySector() {
     try {
-      const dataFilePath = this.getDataFilePath();
-      const raw = fs.readFileSync(dataFilePath, "utf8");
+      const path = this.getDataFilePath();
+      const raw = fs.readFileSync(path, "utf8");
       const data = JSON.parse(raw);
 
       const holdingsBySector = await Promise.all(
@@ -158,13 +143,13 @@ export class StockService {
             };
           }
 
-          const enrichedHoldings = await this.getHoldingsData({
+          const holdingsData = await this.getHoldingsData({
             holdings: sector.holdings,
           });
 
           return {
             sector: sector.sector,
-            holdings: enrichedHoldings,
+            holdings: holdingsData,
           };
         })
       );
@@ -179,31 +164,4 @@ export class StockService {
     }
   }
 
-  async updateStockPrices() {
-    try {
-      const dataFilePath = this.getDataFilePath();
-      const raw = fs.readFileSync(dataFilePath, "utf8");
-      const data = JSON.parse(raw);
-
-      for (const sector of data.US_STOCKS) {
-        for (const holding of sector.holdings) {
-          try {
-            await this.getHoldingsData({ holdings: [holding] });
-          } catch (err) {
-            this.logger.warn(
-              `Failed price fetch for ${holding.symbol}: ${err.message}`,
-            );
-          }
-        }
-      }
-
-      fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2));
-      this.logger.log("Stock prices updated successfully");
-    } catch (error) {
-      this.logger.error(
-        `Error reading/writing data.json: ${error.message}`,
-        error.stack,
-      );
-    }
-  }
 }

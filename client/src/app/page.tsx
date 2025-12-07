@@ -70,12 +70,12 @@ export default function Home() {
             symbol: stock.symbol,
             change: {
               value: change?.toFixed(2) || "N/A",
-              arrow: isUp ? <UpIcon/> : isDown ? <DownIcon/>: "–",
+              arrow: isUp ? <UpIcon /> : isDown ? <DownIcon /> : "–",
               color: isUp ? "text-green-600" : isDown ? "text-red-600" : "text-gray-500",
             },
             changePercent: {
               value: changePercent ? `${changePercent.toFixed(2)}%` : "N/A",
-              arrow: isUp ? <UpIcon/> : isDown ? <DownIcon/>: "–",
+              arrow: isUp ? <UpIcon /> : isDown ? <DownIcon /> : "–",
               color: isUp ? "text-green-600" : isDown ? "text-red-600" : "text-gray-500",
             },
           };
@@ -90,7 +90,7 @@ export default function Home() {
       <main className="flex-1 flex flex-col overflow-auto">
         <header className="w-full shadow-sm p-2 flex justify-between items-center bg-gradient-to-l from-black via-black to-[#8fd84c]">
           <h1 className="text-xl font-semibold text-[#121215]">Dashboard</h1>
-          <button onClick={()=> router.push('/portfolio')} className='text-sm bg-[#8fd84c] py-1 px-2 border border-[#8fd84c] rounded-2xl font-semibold text-[#121215] cursor-pointer hover:scale-105 transition-all duration-300 fade-in' >Portfolio</button>
+          <button onClick={() => router.push('/portfolio')} className='text-sm bg-[#8fd84c] py-1 px-2 border border-[#8fd84c] rounded-2xl font-semibold text-[#121215] cursor-pointer hover:scale-105 transition-all duration-300 fade-in' >Portfolio</button>
         </header>
 
         <div className="flex-1 p-6 ">
@@ -107,13 +107,17 @@ export default function Home() {
                 ))}
               </div>
             ) : (
-              <TableComponent
-                data={tableData}
-                columns={columns}
-                pageSize={10}
-                showPagination={true}
-                showSorting={true}
-              />
+              tableData.length > 0 ?
+                <TableComponent
+                  data={tableData}
+                  columns={columns}
+                  pageSize={10}
+                  showPagination={true}
+                  showSorting={true}
+                /> :
+                <div className="w-full rounded-xl shadow-md p-6">
+                  <div className="text-gray-500 text-center py-8">No  data available</div>
+                </div>
             )}
           </div>
         </div>
