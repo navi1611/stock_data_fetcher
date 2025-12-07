@@ -113,7 +113,7 @@ export default function Portfolio() {
       accessor: 'gainLoss',
       Cell: ({ value }: { value: number, arrow: React.ReactNode }) => {
         return (
-          <span className={`font-medium ${value >= 0 ? 'text-green-600' : 'text-red-600'} flex items-center gap-1`}>
+          <span className={`font-medium ${value.value >= 0 ? 'text-green-600' : 'text-red-500'} flex items-center gap-1`}>
             {value.arrow} {value.value.toFixed(2)}
             {/* {value >= 0 ? '+' : ''}${value.toFixed(2)} */}
           </span>
@@ -132,7 +132,7 @@ export default function Portfolio() {
       <main className="flex-1 flex flex-col overflow-auto">
         <header className="w-full shadow-sm p-2 flex justify-between items-center bg-gradient-to-l from-black via-black to-[#8fd84c]">
           <h1 className="text-xl font-semibold text-[#121215]">Portfolio</h1>
-          <button onClick={() => router.push('/')} className='bg-[#8fd84c] p-2 border border-[#8fd84c] rounded-2xl font-semibold text-[#121215] cursor-pointer hover:scale-105 transition-all duration-300 fade-in' >Dashboard</button>
+          <button onClick={() => router.push('/')} className='text-sm bg-[#8fd84c] px-2 py-1 border border-[#8fd84c] rounded-2xl font-semibold text-[#121215] cursor-pointer hover:scale-105 transition-all duration-300 fade-in' >Dashboard</button>
         </header>
 
         <div className="flex-1 p-6 space-y-6 overflow-auto">
