@@ -72,46 +72,46 @@ export default function Portfolio() {
   const columns = [
     {
       Header: 'Stock Name',
-      accessor: 'particulars',
+      accessor: 'particulars' as const,
       Cell: ({ value }: { value: string }) => <span className="font-medium">{value}</span>
     },
     {
       Header: 'Purchase Price',
-      accessor: 'purchasePrice',
+      accessor: 'purchasePrice' as const,
       Cell: ({ value }: { value: number }) => `$${value.toFixed(2)}`
     },
     {
       Header: 'Qty',
-      accessor: 'quantity'
+      accessor: 'quantity' as const
     },
     {
       Header: 'Investment',
-      accessor: 'investment',
+      accessor: 'investment' as const,
       Cell: ({ value }: { value: number }) => `$${value.toFixed(2)}`
     },
     {
       Header: 'Portfolio',
-      accessor: 'portfolioPercent',
+      accessor: 'portfolioPercent' as const,
       Cell: ({ value }: { value: number }) => `${value.toFixed(2)}%`
     },
     {
       Header: 'Exchange',
-      accessor: 'exchange'
+      accessor: 'exchange' as const
     },
     {
       Header: 'CMP',
-      accessor: 'cmp',
+      accessor: 'cmp' as const,
       Cell: ({ value }: { value: number }) => value > 0 ? `$${value.toFixed(2)}` : 'N/A'
     },
     {
       Header: 'Present Value',
-      accessor: 'presentValue',
+      accessor: 'presentValue' as const,
       Cell: ({ value }: { value: number }) => `$${value.toFixed(2)}`
     },
     {
       Header: 'Gain/Loss',
-      accessor: 'gainLoss',
-      Cell: ({ value }: { value: number, arrow: React.ReactNode }) => {
+      accessor: 'gainLoss' as const,
+      Cell: ({ value }: { value: { value: number; arrow: React.ReactNode } }) => {
         return (
           <span className={`font-medium ${value.value >= 0 ? 'text-green-600' : 'text-red-500'} flex items-center gap-1`}>
             {value.arrow} {value.value.toFixed(2)}
@@ -122,7 +122,7 @@ export default function Portfolio() {
     },
     {
       Header: 'P/E Ratio',
-      accessor: 'peRatio',
+      accessor: 'peRatio' as const,
       Cell: ({ value }: { value: number | null }) => value ? value.toFixed(2) : 'N/A'
     },
   ];

@@ -1,20 +1,34 @@
 'use client';
 
-import { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import TableComponent from "@/components/TableComponent";
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { fetchUsStocks } from '@/store/thunks/stockThunks';
 import { DownIcon, UpIcon } from '../../public';
 import { useRouter } from 'next/navigation';
 
+interface ChangeValue {
+  value: string;
+  arrow: React.ReactNode;
+  color: string;
+}
+
+interface TableRow {
+  name: string;
+  symbol: string;
+  price: string;
+  change: ChangeValue;
+  changePercent: ChangeValue;
+}
+
 const columns = [
-  { Header: 'Name', accessor: 'name' },
-  { Header: 'Symbol', accessor: 'symbol' },
-  { Header: 'Price', accessor: 'price' },
+  { Header: 'Name', accessor: 'name' as const },
+  { Header: 'Symbol', accessor: 'symbol' as const },
+  { Header: 'Price', accessor: 'price' as const },
   {
     Header: 'Change',
-    accessor: 'change',
-    Cell: ({ value }) => (
+    accessor: 'change' as const,
+    Cell: ({ value }: { value: ChangeValue }) => (
       <span className={`${value.color} font-medium flex items-center gap-1`}>
         {value.arrow} {value.value}
       </span>
@@ -22,8 +36,8 @@ const columns = [
   },
   {
     Header: 'Change %',
-    accessor: 'changePercent',
-    Cell: ({ value }) => (
+    accessor: 'changePercent' as const,
+    Cell: ({ value }: { value: ChangeValue }) => (
       <span className={`${value.color} font-medium flex items-center gap-1`}>
         {value.arrow} {value.value}
       </span>
@@ -45,8 +59,8 @@ export default function Home() {
     if (usStocks.length > 0) {
       return usStocks.flatMap((sectorData) =>
         sectorData.data.map((stock) => {
-          const change = stock.regularMarketChange;
-          const changePercent = stock.regularMarketChangePercent;
+          const change = stock.regularMarketChange ?? 0;
+          const changePercent = stock.regularMarketChangePercent ?? 0;
           const isUp = change > 0;
           const isDown = change < 0;
 

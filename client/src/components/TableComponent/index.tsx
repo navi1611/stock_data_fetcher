@@ -27,6 +27,16 @@ export default function DataTable<T extends object>({
     const memoizedData = useMemo(() => data, [data]);
     const memoizedColumns = useMemo(() => columns, [columns]);
 
+    const tableInstance = useTable(
+        {
+            columns: memoizedColumns,
+            data: memoizedData,
+            initialState: { pageSize },
+        },
+        useSortBy,
+        usePagination
+    ) as any;
+
     const {
         getTableProps,
         getTableBodyProps,
@@ -43,15 +53,7 @@ export default function DataTable<T extends object>({
         previousPage,
         setPageSize,
         state: { pageIndex, pageSize: currentPageSize },
-    } = useTable(
-        {
-            columns: memoizedColumns,
-            data: memoizedData,
-            initialState: { pageSize },
-        },
-        useSortBy,
-        usePagination
-    );
+    } = tableInstance;
 
     return (
         <div className="w-full rounded-md fade-in overflow-auto bg-[#3A3A45]">
