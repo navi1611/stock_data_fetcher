@@ -4,6 +4,9 @@ A simple full-stack application to fetch and display stock market data.
 This project includes a React client and a Node.js (NestJS) server.
 Please ensure you are using Node.js v22 and pnpm as your package manager.
 
+**Deployment Link**
+https://stock-data-fetcher.vercel.app/portfolio
+
 **Tech Stack **
 **Frontend**
 React 
