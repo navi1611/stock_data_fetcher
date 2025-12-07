@@ -1,11 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { StockState } from '../types';
-import { fetchStockData, fetchTrendingStocks, fetchUsStocks } from '../thunks/stockThunks';
+import { fetchStockData, fetchTrendingStocks, fetchUsStocks, fetchHoldings, fetchHoldingsBySector } from '../thunks/stockThunks';
 
 const initialState: StockState = {
   stocks: [],
   usStocks: [],
   trendingStocks: [],
+  holdings: [],
+  holdingsBySector: [],
   loading: false,
   error: null,
   selectedSymbols: [],
@@ -26,7 +28,6 @@ const stockSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // Fetch stock data
     builder
       .addCase(fetchStockData.pending, (state) => {
         state.loading = true;
@@ -42,7 +43,6 @@ const stockSlice = createSlice({
         state.error = action.error.message || 'Failed to fetch stock data';
       });
 
-    // Fetch trending stocks
     builder
       .addCase(fetchTrendingStocks.pending, (state) => {
         state.loading = true;
@@ -58,7 +58,6 @@ const stockSlice = createSlice({
         state.error = action.error.message || 'Failed to fetch trending stocks';
       });
 
-    // Fetch US stocks
     builder
       .addCase(fetchUsStocks.pending, (state) => {
         state.loading = true;
@@ -72,6 +71,36 @@ const stockSlice = createSlice({
       .addCase(fetchUsStocks.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Failed to fetch US stocks';
+      });
+
+    builder
+      .addCase(fetchHoldings.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchHoldings.fulfilled, (state, action) => {
+        state.loading = false;
+        state.holdings = action.payload;
+        state.error = null;
+      })
+      .addCase(fetchHoldings.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Failed to fetch holdings data';
+      });
+
+    builder
+      .addCase(fetchHoldingsBySector.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchHoldingsBySector.fulfilled, (state, action) => {
+        state.loading = false;
+        state.holdingsBySector = action.payload;
+        state.error = null;
+      })
+      .addCase(fetchHoldingsBySector.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Failed to fetch holdings for sector';
       });
   },
 });

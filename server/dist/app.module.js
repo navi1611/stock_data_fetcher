@@ -13,6 +13,7 @@ const app_service_1 = require("./app.service");
 const throttler_1 = require("@nestjs/throttler");
 const core_1 = require("@nestjs/core");
 const stockfetcher_module_1 = require("./stockfetcher/stockfetcher.module");
+const error_interceptor_1 = require("./common/interceptors/error.interceptor");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -35,6 +36,10 @@ exports.AppModule = AppModule = __decorate([
             {
                 provide: core_1.APP_GUARD,
                 useClass: throttler_1.ThrottlerGuard,
+            },
+            {
+                provide: core_1.APP_INTERCEPTOR,
+                useClass: error_interceptor_1.ErrorInterceptor,
             },
         ],
     })

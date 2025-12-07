@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getStockData, getTrendingStocks, getUsStocks, StockData, UsStocksResponse } from '@/services/stockApi';
+import { getStockData, getTrendingStocks, getUsStocks, getHoldingsData, getHoldingsBySector } from '@/services/stockService';
+import { StockData, UsStocksResponse, HoldingsRequest, HoldingsResponse, HoldingsBySectorResponse } from '@/interface';
 
 export const fetchStockData = createAsyncThunk(
   'stock/fetchStockData',
@@ -33,6 +34,30 @@ export const fetchUsStocks = createAsyncThunk(
       return data;
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || error.message || 'Failed to fetch US stocks');
+    }
+  }
+);
+
+export const fetchHoldings = createAsyncThunk(
+  'stock/fetchHoldings',
+  async (holdings: HoldingsRequest, { rejectWithValue }) => {
+    try {
+      const data = await getHoldingsData(holdings);
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || error.message || 'Failed to fetch holdings data');
+    }
+  }
+);
+
+export const fetchHoldingsBySector = createAsyncThunk(
+  'stock/fetchHoldingsBySector',
+  async (_, { rejectWithValue }) => {
+    try {
+      const data = await getHoldingsBySector();
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || error.message || 'Failed to fetch holdings by sector');
     }
   }
 );

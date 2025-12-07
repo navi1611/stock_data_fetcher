@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowBigDownDashIcon, ArrowBigUpDashIcon, ArrowDown, ArrowUp, ChevronFirstIcon, ChevronLastIcon, ChevronLeft, ChevronLeftIcon, ChevronRight, ChevronRightIcon } from 'lucide-react';
+import { ArrowBigLeftDash, ArrowBigRightDash, ArrowBigRightDashIcon, ArrowDown, ArrowUp, ChevronFirstIcon, ChevronLastIcon, ChevronLeftIcon, ChevronRightIcon, ChevronsLeftIcon, ChevronsRightIcon, CircleArrowLeftIcon, CircleArrowRightIcon } from 'lucide-react';
 import React, { useMemo } from 'react';
 import {
     useTable,
@@ -54,13 +54,12 @@ export default function DataTable<T extends object>({
     );
 
     return (
-
-        <div className="w-full rounded-md fade-in overflow-auto fade-in">
+        <div className="w-full rounded-md fade-in overflow-auto bg-[#3A3A45]">
             <table
                 {...getTableProps()}
                 className="w-full "
             >
-                <thead className="bg-gray-200 px-6 py-4 border-1 border-gray-300 rounded-md text-gray-700 fade-in">
+                <thead className="bg-[#3A3A45] px-6 py-4  rounded-md text-[#9AA0B5]">
                     {headerGroups.map((headerGroup) => (
                         <tr {...headerGroup.getHeaderGroupProps()} key={headerGroup.id}>
                             {headerGroup.headers.map((column: any) => {
@@ -70,13 +69,13 @@ export default function DataTable<T extends object>({
                                         {...column.getHeaderProps(
                                             showSorting ? sortableColumn.getSortByToggleProps?.() : undefined
                                         )}
-                                        className="px-6 py-4  sticky top-0 z-20"
+                                        className="px-6 py-4 sticky top-0 z-20"
                                         key={column.id}
                                     >
                                         <div className="flex items-center gap-2">
                                             {column.render('Header')}
                                             {showSorting && sortableColumn.isSorted && (
-                                                <span className="text-gray-400">
+                                                <span className="text-white">
                                                     {sortableColumn.isSortedDesc ? <ArrowDown /> : <ArrowUp />}
                                                 </span>
                                             )}
@@ -89,13 +88,12 @@ export default function DataTable<T extends object>({
                 </thead>
                 <tbody
                     {...getTableBodyProps()}
-                    className="text-gray-700"
+                    className="text-white"
                 >
                     {page.length === 0 ? (
                         <tr>
                             <td
                                 colSpan={columns.length}
-                                className=""
                             >
                                 No data available
                             </td>
@@ -106,13 +104,13 @@ export default function DataTable<T extends object>({
                             return (
                                 <tr
                                     {...row.getRowProps()}
-                                    className="transition-colors bg-white odd:bg-white even:bg-gray-50 hover:bg-gray-100 text-gray-700 fade-in"
+                                    className="transition-colors duration-300 odd:bg-[#222229] even:bg-[#2B2B33] hover:bg-[#8fd84c] hover:text-[#3A3A45] cursor-pointer text-white"
                                     key={row.id}
                                 >
                                     {row.cells.map((cell) => (
                                         <td
                                             {...cell.getCellProps()}
-                                            className=" px-6 py-4 whitespace-nowrap text-sm "
+                                            className="px-6 py-4 whitespace-nowrap text-sm"
                                             key={cell.column.id}
                                         >
                                             {cell.render('Cell')}
@@ -126,40 +124,42 @@ export default function DataTable<T extends object>({
             </table>
 
             {showPagination && pageCount > 1 && (
-                <div className="bg-gray-200 text-gray-600 flex items-center justify-between px-4 py-3">
+                <div className="bg-[#3A3A45] text-[#9AA0B5] flex items-center justify-between px-4 py-3">
                     <div className="flex items-center gap-2">
                         <button
                             onClick={() => gotoPage(0)}
                             disabled={!canPreviousPage}
-                            className=""
+                            className='cursor-pointer'
                         >
-                            <ChevronFirstIcon/>
+                            {/* <ChevronFirstIcon/> */}
+                            <ChevronsLeftIcon/>
                         </button>
                         <button
                             onClick={() => previousPage()}
                             disabled={!canPreviousPage}
-                            className=""
+                            className='cursor-pointer'
                         >
-                            <ChevronLeftIcon/>
+                            <CircleArrowLeftIcon/>
                         </button>
                         <button
                             onClick={() => nextPage()}
                             disabled={!canNextPage}
-                            className=""
+                            className='cursor-pointer'
                         >
-                            <ChevronRightIcon/>
+                            <CircleArrowRightIcon/>
                         </button>
                         <button
                             onClick={() => gotoPage(pageCount - 1)}
                             disabled={!canNextPage}
-                            className=""
+                            className='cursor-pointer'
                         >
-                            <ChevronLastIcon/>
+                            {/* <ChevronLastIcon/> */}
+                            <ChevronsRightIcon/>
                         </button>
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <span className="text-sm ">
+                        <span className="text-sm">
                             Page{' '}
                             <strong>
                                 {pageIndex + 1} of {pageOptions.length}
@@ -170,7 +170,7 @@ export default function DataTable<T extends object>({
                             onChange={(e) => {
                                 setPageSize(Number(e.target.value));
                             }}
-                            className=""
+                            className='cursor-pointer'
                         >
                             {[10, 20, 30, 40, 50].map((size) => (
                                 <option key={size} value={size}>

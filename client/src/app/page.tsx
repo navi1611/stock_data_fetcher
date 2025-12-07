@@ -5,6 +5,7 @@ import TableComponent from "@/components/TableComponent";
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { fetchUsStocks } from '@/store/thunks/stockThunks';
 import { DownIcon, UpIcon } from '../../public';
+import { useRouter } from 'next/navigation';
 
 const columns = [
   { Header: 'Name', accessor: 'name' },
@@ -33,6 +34,8 @@ const columns = [
 export default function Home() {
   const dispatch = useAppDispatch();
   const { usStocks, loading } = useAppSelector((state) => state.stock);
+
+  const router = useRouter()
 
   useEffect(() => {
     dispatch(fetchUsStocks());
@@ -69,26 +72,23 @@ export default function Home() {
   }, [usStocks]);
 
   return (
-    <div className="flex h-screen bg-gray-100">
-
+    <div className="flex h-screen ">
       <main className="flex-1 flex flex-col overflow-auto">
-        <header className="w-full bg-white shadow-sm p-5 flex justify-between items-center">
-          <h1 className="text-xl font-semibold text-gray-800">Dashboard</h1>
-          <div className="flex items-center space-x-4">
-            <div className="w-10 h-10 rounded-full bg-gray-300"></div>
-          </div>
+        <header className="w-full shadow-sm p-2 flex justify-between items-center bg-gradient-to-l from-black via-black to-[#8fd84c]">
+          <h1 className="text-xl font-semibold text-[#121215]">Dashboard</h1>
+          <button onClick={()=> router.push('/portfolio')} className='text-sm bg-[#8fd84c] py-1 px-2 border border-[#8fd84c] rounded-2xl font-semibold text-[#121215] cursor-pointer hover:scale-105 transition-all duration-300 fade-in' >Portfolio</button>
         </header>
 
-        <div className="flex-1 p-6">
-          <div className="w-full bg-white rounded-xl shadow-md p-6 overflow-auto">
+        <div className="flex-1 p-6 ">
+          <div className="w-full rounded-xl  p-6 overflow-auto bg-[#121215]">
             {loading ? (
               <div className="space-y-2 animate-pulse">
                 {[...Array(10)].map((_, i) => (
-                  <div key={i} className={`grid grid-cols-5 gap-4 p-4 ${i % 2 === 0 ? "bg-gray-50" : "bg-gray-100"}`}>
-                    <div className="h-4 bg-gray-300 rounded col-span-2"></div>
-                    <div className="h-4 bg-gray-300 rounded"></div>
-                    <div className="h-4 bg-gray-300 rounded"></div>
-                    <div className="h-4 bg-gray-300 rounded"></div>
+                  <div key={i} className={`grid grid-cols-5 gap-4 p-4 odd:bg-[#222229] even:bg-[#2B2B33]`}>
+                    <div className="h-4 bg-[#3A3A45] rounded col-span-2"></div>
+                    <div className="h-4 bg-[#3A3A45] rounded"></div>
+                    <div className="h-4 bg-[#3A3A45] rounded"></div>
+                    <div className="h-4 bg-[#3A3A45] rounded"></div>
                   </div>
                 ))}
               </div>

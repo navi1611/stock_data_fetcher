@@ -1,4 +1,4 @@
-import { StockData, UsStocksResponse } from '@/services/stockApi';
+import { StockData, UsStocksResponse } from '@/services/stockService';
 
 export const FETCH_US_STOCKS_REQUEST = 'FETCH_US_STOCKS_REQUEST';
 export const FETCH_US_STOCKS_SUCCESS = 'FETCH_US_STOCKS_SUCCESS';

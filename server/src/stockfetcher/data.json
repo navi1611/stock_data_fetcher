@@ -1,0 +1,142 @@
+{
+  "US_STOCKS": [
+    {
+      "sector": "Technology",
+      "symbol": ["MSFT", "GOOG", "GOOGL", "NVDA", "ORCL", "CSCO", "AMD"],
+      "holdings": [
+        {
+          "particulars": "Microsoft Corporation",
+          "purchasePrice": 350.25,
+          "quantity": 5,
+          "symbol": "MSFT"
+        },
+        {
+          "particulars": "Google LLC",
+          "purchasePrice": 2800,
+          "quantity": 2,
+          "symbol": "GOOGL"
+        },
+        {
+          "particulars": "NVIDIA Corporation",
+          "purchasePrice": 750.5,
+          "quantity": 3,
+          "symbol": "NVDA"
+        }
+      ]
+    },
+    {
+      "sector": "Consumer Discretionary",
+      "symbol": ["AMZN", "TSLA", "DIS", "NFLX", "COST"],
+      "holdings": [
+        {
+          "particulars": "Amazon.com Inc.",
+          "purchasePrice": 3200.75,
+          "quantity": 3,
+          "symbol": "AMZN"
+        },
+        {
+          "particulars": "Tesla Inc.",
+          "purchasePrice": 850.5,
+          "quantity": 4,
+          "symbol": "TSLA"
+        },
+        {
+          "particulars": "Netflix Inc.",
+          "purchasePrice": 500,
+          "quantity": 2,
+          "symbol": "NFLX"
+        }
+      ]
+    },
+    {
+      "sector": "Financials",
+      "symbol": ["BRK.B", "JPM", "V", "MA"],
+      "holdings": [
+        {
+          "particulars": "Berkshire Hathaway Inc.",
+          "purchasePrice": 350,
+          "quantity": 1,
+          "symbol": "BRK.B"
+        },
+        {
+          "particulars": "JPMorgan Chase & Co.",
+          "purchasePrice": 160,
+          "quantity": 3,
+          "symbol": "JPM"
+        },
+        {
+          "particulars": "Visa Inc.",
+          "purchasePrice": 225,
+          "quantity": 2,
+          "symbol": "V"
+        }
+      ]
+    },
+    {
+      "sector": "Healthcare",
+      "symbol": ["JNJ", "LLY", "UNH"],
+      "holdings": [
+        {
+          "particulars": "Johnson & Johnson",
+          "purchasePrice": 165,
+          "quantity": 4,
+          "symbol": "JNJ"
+        },
+        {
+          "particulars": "Eli Lilly and Company",
+          "purchasePrice": 700,
+          "quantity": 1,
+          "symbol": "LLY"
+        }
+      ]
+    },
+    {
+      "sector": "Energy",
+      "symbol": ["XOM", "CVX"],
+      "holdings": [
+        {
+          "particulars": "Exxon Mobil Corporation",
+          "purchasePrice": 110,
+          "quantity": 5,
+          "symbol": "XOM"
+        },
+        {
+          "particulars": "Chevron Corporation",
+          "purchasePrice": 160,
+          "quantity": 3,
+          "symbol": "CVX"
+        }
+      ]
+    },
+    {
+      "sector": "Communication Services",
+      "symbol": ["META", "T"],
+      "holdings": [
+        {
+          "particulars": "Meta Platforms Inc.",
+          "purchasePrice": 350,
+          "quantity": 2,
+          "symbol": "META"
+        },
+        {
+          "particulars": "AT&T Inc.",
+          "purchasePrice": 18,
+          "quantity": 10,
+          "symbol": "T"
+        }
+      ]
+    },
+    {
+      "sector": "Industrials / Aerospace",
+      "symbol": ["BA"],
+      "holdings": [
+        {
+          "particulars": "The Boeing Company",
+          "purchasePrice": 220,
+          "quantity": 2,
+          "symbol": "BA"
+        }
+      ]
+    }
+  ]
+}
