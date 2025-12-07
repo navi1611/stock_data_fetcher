@@ -201,7 +201,7 @@ export default function Portfolio() {
               </div>
             ))
           ) : (
-            <div className="w-full    rounded-xl shadow-md p-6">
+            <div className="w-full rounded-xl shadow-md p-6">
               <div className="text-gray-500 text-center py-8">No portfolio data available</div>
             </div>
           )}
