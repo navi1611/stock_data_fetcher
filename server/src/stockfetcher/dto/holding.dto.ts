@@ -8,25 +8,25 @@ export class HoldingDto {
   particulars: string;
 
   @ApiProperty({
-    description: "Purchase price per share",
+    description: "Purchase price ",
     example: 150.5,
   })
   purchasePrice: number;
 
   @ApiProperty({
-    description: "Quantity of shares",
+    description: "Quantity ",
     example: 10,
   })
   quantity: number;
 
   @ApiProperty({
-    description: "Stock exchange code (NSE/BSE)",
+    description: "exchange code",
     example: "NSE",
   })
   exchange: string;
 
   @ApiProperty({
-    description: "Stock symbol",
+    description: " symbol",
     example: "AAPL",
   })
   symbol: string;
